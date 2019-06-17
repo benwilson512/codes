@@ -35,4 +35,28 @@ defmodule Codes do
       "#{group_a}-#{group_b}-#{group_c}-#{group_d}"
     end
   end
+
+  defmodule V3 do
+    chars = 'CDEFGHJKLMNPQRTUVWXYZ23679'
+
+    @chars List.to_tuple(chars)
+
+    def generate() do
+      0
+      |> generate()
+      |> IO.iodata_to_binary()
+    end
+
+    def generate(n) when n in [4, 9, 14] do
+      [?- | generate(n + 1)]
+    end
+
+    def generate(n) when n >= 19 do
+      []
+    end
+
+    def generate(n) do
+      [elem(@chars, :rand.uniform(26) - 1) | generate(n + 1)]
+    end
+  end
 end
